@@ -31,5 +31,5 @@ jobs:
           password: 'VAc4JJPVas7QZEMDIohI9AFyAmJYZzo8a7gc0O1fFP+ACRCXFf1W'
       - run: |
           docker pull ghcr.io/chroma-core/chroma:0.6.3
-          docker tag nginx:latest crapigentest.azurecr.io/nginx:latest
+          docker tag ghcr.io/chroma-core/chroma:0.6.3 crapigentest.azurecr.io/nginx:latest
           docker push crapigentest.azurecr.io/nginx:latest
