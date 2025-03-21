@@ -1,0 +1,10 @@
+variable "resource_group_id" {}
+variable "tags" {}
+variable "location" {}
+variable "product_name" {}
+variable "environment" {}
+variable "webapp_name" {}
+variable "registry_id" {}
+variable "repository_name" {}
+variable "scm_user" {}
+variable "scm_password" {}
