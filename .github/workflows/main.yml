@@ -31,5 +31,5 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
       - run: |
           docker pull ghcr.io/chroma-core/chroma:0.6.3
-          docker tag ghcr.io/chroma-core/chroma:0.6.3 crapigentest.azurecr.io/nginx:latest
-          docker push crapigentest.azurecr.io/nginx:latest
+          docker tag ghcr.io/chroma-core/chroma:0.6.3 ${{ vars.REGISTRY_URL }}/nginx:latest
+          docker push ${{ vars.REGISTRY_URL }}/nginx:latest
