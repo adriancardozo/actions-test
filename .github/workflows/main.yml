@@ -26,9 +26,9 @@ jobs:
       - name: 'Pull and push image'
         uses: azure/docker-login@v1
         with:
-          login-server: 'https://crapigentest.azurecr.io'
+          login-server: ${{ format('https://{0}', ${{ vars.REGISTRY_URL }}) }}
           username: ${{ vars.REGISTRY_USERNAME }}
-          password: ${{ vars.REGISTRY_PASSWORD }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
       - run: |
           docker pull ghcr.io/chroma-core/chroma:0.6.3
           docker tag ghcr.io/chroma-core/chroma:0.6.3 ${{ vars.REGISTRY_URL }}/nginx:latest
