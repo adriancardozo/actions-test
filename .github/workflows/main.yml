@@ -26,7 +26,7 @@ jobs:
       - name: 'Pull and push image'
         uses: azure/docker-login@v1
         with:
-          login-server: ${{ format('https://{0}', ${{ vars.REGISTRY_URL }}) }}
+          login-server: ${{ format('https://{0}', vars.REGISTRY_URL) }}
           username: ${{ vars.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
       - run: |
