@@ -23,6 +23,10 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: 'Login with Azure'
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: 'Pull and push image'
         uses: azure/docker-login@v1
         with:
@@ -30,6 +34,18 @@ jobs:
           username: ${{ vars.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
       - run: |
-          docker pull ghcr.io/chroma-core/chroma:0.6.3
-          docker tag ghcr.io/chroma-core/chroma:0.6.3 ${{ vars.REGISTRY_URL }}/nginx:latest
-          docker push ${{ vars.REGISTRY_URL }}/nginx:latest
+          docker pull ghcr.io/chroma-core/chroma:0.5.4
+          docker tag ghcr.io/chroma-core/chroma:0.5.4 ${{ vars.REGISTRY_URL }}/chromadb:0.5.4
+          docker push ${{ vars.REGISTRY_URL }}/chromadb:0.5.4
+      - uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ vars.WEBAPP_NAME }}
+          images: ${{ vars.REGISTRY_URL }}/chromadb:0.5.4
+      - uses: azure/appservice-settings@v1
+        with:
+          app-name: ${{ vars.WEBAPP_NAME }}
+          app-settings-json: ${{ secrets.APP_SETTINGS }}
+          id: settings
+      - name: 'Azure logout'
+        run: |
+          az logout
