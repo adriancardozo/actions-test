@@ -1,1 +1,6 @@
 FROM nginx
+
+ARG VERSION
+ENV VERSION=${VERSION}
+
+CMD ["echo", "$VERSION"]
