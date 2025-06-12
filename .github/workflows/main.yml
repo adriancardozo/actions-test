@@ -71,7 +71,9 @@ jobs:
         with:
           context: .
           push: true
-          build-args: "VERSION=${{ steps.meta.outputs.tags }}"
+          build-args: |
+            "VERSION=${{ steps.version.outputs.TAG_NAME }}"
+            "SELF_VERSION=hola"
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
