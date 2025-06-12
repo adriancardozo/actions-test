@@ -1,18 +1,33 @@
 # ======================================================================================================
-name: Get source branch name
+name: Create tag
 
 on:
-  push:
-    branches: ["*"]
+  pull_request:
+    branches: ["main"]
+    types:
+      - closed
   workflow_dispatch:
 
 jobs:
-  source_branch_name:
+  if_merged:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
+    # permissions:
+    #   contents: write
     steps:
+    # - name: Create release
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #     tag: v1.9
+    #   run: |
+    #     gh release create "$tag" \
+    #         --repo="$GITHUB_REPOSITORY" \
+    #         --title="${GITHUB_REPOSITORY#*/} ${tag#v}" \
+    #         --generate-notes
     - run: |
         echo ${{ github.head_ref }}
 
+#=====================================================================================================
 
 # name: Create tag
 
