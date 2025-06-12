@@ -10,22 +10,26 @@ on:
 
 jobs:
   if_merged:
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true && startsWith(github.head_ref, "release-v")
     runs-on: ubuntu-latest
-    # permissions:
-    #   contents: write
+    permissions:
+      contents: write
     steps:
-    # - name: Create release
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #     tag: v1.9
-    #   run: |
-    #     gh release create "$tag" \
-    #         --repo="$GITHUB_REPOSITORY" \
-    #         --title="${GITHUB_REPOSITORY#*/} ${tag#v}" \
-    #         --generate-notes
+    - name: version
+      id: version
+      run: |
+        echo "TAG_NAME=$(echo "${{ github.head_ref }}" | sed -e 's/^release-//')" >> $GITHUB_OUTPUT
+    - name: Create release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        tag: ${{ steps.version.outputs.TAG_NAME }}
+      run: |
+        gh release create "$tag" \
+            --repo="$GITHUB_REPOSITORY" \
+            --title="${GITHUB_REPOSITORY#*/} ${tag#v}" \
+            --generate-notes
     - run: |
-        echo ${{ github.head_ref }}
+        echo ${{ steps.version.outputs.TAG_NAME }}
 
 #=====================================================================================================
 
