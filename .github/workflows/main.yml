@@ -10,7 +10,7 @@ on:
 
 jobs:
   if_merged:
-    if: github.event.pull_request.merged == true && startsWith(github.head_ref, "release-v")
+    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'release-v')
     runs-on: ubuntu-latest
     permissions:
       contents: write
