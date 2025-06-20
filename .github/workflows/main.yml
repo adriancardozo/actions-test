@@ -1,4 +1,4 @@
-name: Create tag
+name: Get branch
 
 on:
   push:
@@ -16,7 +16,28 @@ jobs:
     - name: version
       id: version
       run: |
-        echo $REGISTRY
+        echo ${{ github.ref }}
+
+#================================================================================================
+# name: Echo env
+
+# on:
+#   push:
+#     branches: ["main"]
+#   workflow_dispatch:
+# env:
+#   REGISTRY: ghcr.io
+#   IMAGE_NAME: ${{ github.repository }}
+# jobs:
+#   if_merged:
+#     runs-on: ubuntu-latest
+#     permissions:
+#       contents: write
+#     steps:
+#     - name: version
+#       id: version
+#       run: |
+#         echo $REGISTRY
 
 # ======================================================================================================
 
