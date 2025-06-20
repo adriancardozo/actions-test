@@ -16,7 +16,7 @@ jobs:
     - name: version
       id: version
       run: |
-        echo ${${{ github.ref }}#refs/heads/}
+        echo ${{${{ github.ref }}#refs/heads/}}
 
 #================================================================================================
 # name: Echo env
